@@ -21,21 +21,13 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
-    private int price;
-
-    @Column(name = "img_1")
-    private String img1;
-
-    @Column(name = "img_2")
-    private String img2;
-
-    @Column(name = "img_3")
-    private String img3;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "detail_Category_id")
+    private DetailCategory detailCategory;
 
     @OneToMany(mappedBy = "product")
     private List<Promo> promoList;
@@ -45,4 +37,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<DetailOrder> detailOrderList;
+
+    @OneToMany(mappedBy = "product")
+    private List<Price> priceList;
+
+
 }

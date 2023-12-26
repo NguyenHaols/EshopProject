@@ -44,7 +44,8 @@ public class CustomFilterSecurity{
         http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/user/getAllUser").hasAnyAuthority("admin")
+                .requestMatchers("/category/**","/product/**").permitAll()
+                .requestMatchers("/user/**").hasAnyAuthority("admin","user")
                 .requestMatchers("/login/**").permitAll().anyRequest().authenticated()
         );
         http.cors(Customizer.withDefaults());

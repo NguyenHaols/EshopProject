@@ -12,5 +12,5 @@ public class UserDTO {
     private String userName;
     private String password;
     private Date userCreateDate;
-    private RoleDTO roleDTO;
+    private RoleDTO role;
 }

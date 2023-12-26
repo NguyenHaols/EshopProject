@@ -8,12 +8,17 @@ import com.Eshopping.Service.UserService;
 import com.Eshopping.model.Role;
 import com.Eshopping.model.User;
 import com.Eshopping.payLoad.request.SignUpRequest;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -27,39 +32,42 @@ public class UserServiceImp implements UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Override
+    public UserDTO getUserByUsername(String username) {
+        User user = userRepo.findByUserName(username);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return userDTO;
+    }
+
+
+
     public List<UserDTO> getAllUser(){
         List<User> list = userRepo.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
-
-        for(User u : list){
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUserId(u.getId());
-            userDTO.setUserName(u.getUserName());
-            userDTO.setUserCreateDate(u.getCreateDate());
-            userDTO.setPassword(u.getPassword());
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.setId(u.getRole().getId());
-            roleDTO.setRoleName(u.getRole().getRoleName());
-            roleDTO.setCreateDate(u.getRole().getCreateDate());
-            userDTO.setRoleDTO(roleDTO);
-            userDTOList.add(userDTO);
-        }
+        List<UserDTO> userDTOList = list.stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
         return userDTOList;
-    }
+    };
 
     @Override
     public boolean checkLogin(String usernname,String password) {
 
        User user = userRepo.findByUserName(usernname);
        return passwordEncoder.matches(password,user.getPassword());
-    }
+    };
 
     @Override
     public boolean addUser(SignUpRequest signUpRequest) {
-        Role role = roleRepo.getById(signUpRequest.getRoleId());
+        Role role = roleRepo.getById(3);
         User user = new User();
         user.setUserName(signUpRequest.getUserName());
-        user.setPassword(signUpRequest.getPassWord());
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassWord()));
         user.setRole(role);
 
         try {
@@ -69,25 +77,18 @@ public class UserServiceImp implements UserService {
             return false;
         }
 
-    }
-
-
-    @Override
-    public UserDTO getUserByUsername(String username) {
-        User user = userRepo.findByUserName(username);
-        UserDTO userDTO = new UserDTO();
-        RoleDTO roleDTO = new RoleDTO();
-        userDTO.setUserId(user.getId());
-        userDTO.setUserName(user.getUserName());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setUserCreateDate(user.getCreateDate());
-        roleDTO.setId(user.getRole().getId());
-        roleDTO.setRoleName(user.getRole().getRoleName());
-        roleDTO.setCreateDate(user.getRole().getCreateDate());
-        userDTO.setRoleDTO(roleDTO);
-
-        return userDTO;
     };
+
+
+
+    @Transactional
+    public void updatePasswordByUsername(UserDTO userDTO,String newpassword) {
+        entityManager.createNativeQuery("UPDATE users SET password = :newPassword WHERE user_name = :username")
+                .setParameter("newPassword", passwordEncoder.encode(newpassword))
+                .setParameter("username", userDTO.getUserName())
+                .executeUpdate();
+    };
+
 
 
 

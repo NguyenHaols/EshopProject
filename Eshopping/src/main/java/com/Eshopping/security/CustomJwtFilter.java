@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -30,6 +32,10 @@ public class CustomJwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("my filter");
         Authentication authentication = jwtUtil.parseTokenToUser((HttpServletRequest) servletRequest);
+        if(authentication == null){
+            // cần xử lý nếu như tài khoản chưa authentication
+
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(servletRequest,servletResponse);
     }

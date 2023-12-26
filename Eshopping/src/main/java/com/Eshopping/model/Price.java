@@ -1,29 +1,23 @@
 package com.Eshopping.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "rating_star")
-public class RatingStar {
+@Table(name = "product_price")
+public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
-    @Column(name = "feedback")
-    private String feedback;
-
-    @Column(name = "rate_point")
-    private int ratePoint;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    private Size size;
+
+    private Long price;
 }

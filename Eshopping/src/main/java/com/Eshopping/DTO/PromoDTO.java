@@ -1,6 +1,6 @@
 package com.Eshopping.DTO;
 
-import jakarta.persistence.Column;
+import com.Eshopping.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +10,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleDTO {
+public class PromoDTO {
     private int id;
-    private String roleName;
-    private Date createDate;
+    private int percent;
+    private Date dayStart;
+    private Date dayEnd;
+    private ProductDTO product;
 }

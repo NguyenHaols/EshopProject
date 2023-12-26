@@ -8,19 +8,19 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "category")
-public class Category {
-
+@Table(name = "detail_category")
+public class DetailCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
-    @Column(name = "category_name")
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @Column (name = "category_name")
     private String categoryName;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "detailCategory")
     private List<Product> productList;
-
-    @OneToMany(mappedBy = "category")
-    private List<DetailCategory> detailCategoryList;
 }

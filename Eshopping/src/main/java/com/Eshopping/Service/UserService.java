@@ -14,5 +14,7 @@ public interface UserService {
     public List<UserDTO> getAllUser();
     public boolean checkLogin(String usernname , String password);
     public boolean addUser(@RequestBody SignUpRequest signUpRequest);
-    UserDTO getUserByUsername(String username);
+    public UserDTO getUserByUsername(String username);
+
+    public void updatePasswordByUsername(UserDTO userDTO,String newpassword);
 }

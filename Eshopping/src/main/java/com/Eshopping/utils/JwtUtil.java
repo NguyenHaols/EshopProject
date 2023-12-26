@@ -48,7 +48,7 @@ public class JwtUtil {
             UserDTO user = userService.getUserByUsername(username);
 
             return username != null ? new UsernamePasswordAuthenticationToken
-                    (user.getUserName(),null, AuthorityUtils.createAuthorityList(user.getRoleDTO().getRoleName()))
+                    (user.getUserName(),null, AuthorityUtils.createAuthorityList(user.getRole().getRoleName()))
                     : null;
         }catch (Exception e){
             return null;

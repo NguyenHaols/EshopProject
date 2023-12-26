@@ -26,5 +26,5 @@ public class Promo {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    Product product;
+    private Product product;
 }
