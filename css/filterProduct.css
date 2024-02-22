@@ -1,0 +1,145 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+
+.filterContainer{
+    display: flex;
+    margin-top: 80px;
+    padding: 0 64px;
+}
+
+.filterContainer .filter-section{
+    width: 20%;
+}
+
+.filter-section .filter__item li{
+    list-style: none;
+    margin-bottom: 20px;
+    
+}
+
+.filter-section .filter__item li span{
+    margin-left: 8px;
+}
+
+.filter-section .filter__item h5{
+    text-transform: uppercase;
+    color: #231f20;
+    margin: 12px 0;
+}
+
+.filter-section .filter__count{
+    padding: 8px 0;
+    border-bottom: 1px solid #aebbc1;
+}
+
+.filterContainer .product-section{
+    width: 80%;
+    padding-left: 64px;
+}
+
+.product-section .categoryTitle h1{
+    text-transform: uppercase;
+    font-weight: 550;
+    font-size: 24px;
+    line-height: 30px;
+    border-bottom: 1px solid #e1e3e4;
+    padding: 20px;
+}
+
+.product-section .product .product__row{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
+.product-section .product .product__row .product__item{
+    width: 25%;
+    padding: 15px 5px;
+   
+}
+.product-section .product__row .product__item .product__item__img{
+    height: 70%;
+}
+
+.product-section .product__row .product__item .product__item__img img{
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+
+.product-section .product .product__row .product__item__size{
+    display: flex;
+    margin: 5px 0;
+}
+
+.product-section .product .product__row .product__item__size .size{
+    
+    width: 60px;
+    height: 30px;
+    margin: 10px 0;
+    margin-right: 10px;
+    position: relative;
+    text-align: center;
+    border: 1px solid black;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #333;
+    border-radius: 10px;
+    color: white;
+}
+
+.product__item__size .size span{
+   
+    
+}
+
+.product-section .product .product__row .product__item__size .active{
+    position: relative;
+}
+.product-section .product__item__size .border__active{
+  
+}
+
+.product-section .product__item .product__item__title{
+    margin: 5px 0;
+    color: #231f20;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+
+.product-section .product__item .product__item__title a{
+    color: #231f20;
+    font-weight: 550;
+}
+
+.product-section .product__item .product__item__descrptionSize{
+    margin: 5px 0;
+    font-size: 14px;
+    color: #0009;
+}
+
+.product-section .product__item .product__item__price p{
+   color: #231f20;
+   font-style: italic;
+}
